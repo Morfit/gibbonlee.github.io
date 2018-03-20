@@ -37,4 +37,25 @@
     
   </entry>
   
+  <entry>
+    <title></title>
+    <link href="http://gibbonlee.github.io/2018/03/18/1/"/>
+    <id>http://gibbonlee.github.io/2018/03/18/1/</id>
+    <published>2018-03-18T05:40:08.385Z</published>
+    <updated>2018-03-19T14:48:19.151Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="A-sample-of-Markdown-document"><a href="#A-sample-of-Markdown-document" class="headerlink" title="A sample of Markdown document"></a>A sample of Markdown document</h1><hr><h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><p>##<br>我的邮箱：<a href="mailto:&#122;&#x6b;&#x6a;&#x69;&#97;&#64;&#x6d;&#97;&#105;&#x6c;&#x2e;&#117;&#115;&#x74;&#99;&#46;&#x65;&#x64;&#117;&#x2e;&#x63;&#x6e;" target="_blank" rel="noopener">&#122;&#x6b;&#x6a;&#x69;&#97;&#64;&#x6d;&#97;&#105;&#x6c;&#x2e;&#117;&#115;&#x74;&#99;&#46;&#x65;&#x64;&#117;&#x2e;&#x63;&#x6e;</a>,欢迎联系！</p><p>##<br>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;A-sample-of-Markdown-document&quot;&gt;&lt;a href=&quot;#A-sample-of-Markdown-document&quot; class=&quot;headerlink&quot; title=&quot;A sample of Markdown document&quot;&gt;&lt;/a
+      
+    
+    </summary>
+    
+    
+  </entry>
+  
 </feed>
