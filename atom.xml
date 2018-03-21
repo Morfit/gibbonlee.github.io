@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gibbonlee.github.io/"/>
-  <updated>2018-03-19T15:02:54.699Z</updated>
+  <updated>2018-03-21T04:18:19.773Z</updated>
   <id>http://gibbonlee.github.io/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>双硬盘安装CentOS 7+Windows 10</title>
+    <link href="http://gibbonlee.github.io/2018/03/20/%E5%8F%8C%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85CentOS%207+%20Windows%2010/"/>
+    <id>http://gibbonlee.github.io/2018/03/20/双硬盘安装CentOS 7+ Windows 10/</id>
+    <published>2018-03-20T15:00:00.000Z</published>
+    <updated>2018-03-21T04:18:19.773Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从换了SSD以后，原来机械硬盘上的系统分区就被闲置了，正好最近要用到Linux系统，所以尝试着安装了一下RH系的几个系统。中途遇到了不少坑，而且相关的资料<br>并不多。因此我想在这里把自己的经验和大家分享一下。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>需要提前下载的东西有:</p><ul><li><a href="https://cn.ultraiso.net/xiazai.html" title="UltraISO官方下载地址" target="_blank" rel="noopener">UltraISO</a></li><li><a href="http://mirrors.ustc.edu.cn/centos/7.4.1708/isos/x86_64/" title="CentOS 科大镜像站下载地址" target="_blank" rel="noopener">CentOS7</a> 原版镜像</li><li>(<a href="https://github.com/MartinBriza/MediaWriter/releases" title="Fedora Media Writer Realeases for Windows Platform" target="_blank" rel="noopener">Fedora Media Writer</a>)</li></ul><p>其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用UltraISO 写入硬盘映像。系统镜像的下载地址我选择了 <a href="http://mirrors.ustc.edu.cn" title="科大镜像站" target="_blank" rel="noopener">USTC open source software mirror</a>,比国外的镜像站速度要快不少，当然，你也可以选择阿里云或者网易的镜像站。UltraISO用官方试用版的即可，现在貌似试用版的没有使用期限了，功能也够用。</p><h2 id="安装条件检查"><a href="#安装条件检查" class="headerlink" title="安装条件检查"></a>安装条件检查</h2><ol><li>First of all，确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！重要的事情说三遍。如果不是UEFI引导的，虽然安装上没有任何问题，但是之后切换系统会让你痛苦万分。</li><li>确认硬盘上存在EFI分区，而且这个分区的文件格式是FAT32。分区情况可以在<code>计算机-管理-磁盘管理</code>中看到。还需要注意这一分区所在的位置，是在HDD上还是SDD上，我的是在HDD上的，这是以下内容的前提。如果EFI分区在SDD上，本篇经验可能有不适用的地方，请注意数据安全！</li></ol><h2 id="制作启动U盘"><a href="#制作启动U盘" class="headerlink" title="制作启动U盘"></a>制作启动U盘</h2><p>首先，准备一个空的8G以上的U盘，这里我不建议使用移动硬盘，因为会麻烦很多，这个我会单独写一篇文章来介绍。 在确保U盘内没有重要文件的前提下，用UltraISO加载CentOS7的iso镜像，然后选择<code>启动-写入硬盘映像</code>所有设置都默认即可。RH系的系统的一个特点是镜像中自带EFI文件，因此不需要专门花功夫去建立引导。</p><h2 id="进入安装介质"><a href="#进入安装介质" class="headerlink" title="进入安装介质"></a>进入安装介质</h2><p>重启电脑，狂点<code>ESC</code>或<code>F2</code>键，进入BIOS界面，在Boot菜单确认引导方式是<code>UEFI</code>而非<code>Legacy Support</code>，然后寻找一个名为<code>Secure Boot</code>的选项，设置为<code>Disabled</code>。这一选项可能存在于<code>Boot</code>或<code>Security</code>菜单，因人而异。然后还是在<code>Boot</code>菜单中，把U盘作为第一启动项，插入U盘后，按<code>F10</code>重启即可进入安装介质。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>从U盘启动后，进入有三个选项的界面，第一个是直接安装CentOS，第二个是测试机器后安装CentOS，第三个是Troubleshooting Mode。把光标移动到第一个选项上，点击键盘上的<code>Tab</code>键或<code>e</code>键，把<code>hd:</code>后面的内容从<code>LABEL=Cent……64</code>改为<code>/dev/sdc4</code>然后回车，试一下是否能进入安装界面，一般而言，centos给U盘分配的分区都是<code>sdc4</code>。如果不行的话，重启，把<code>inst.stage2……</code>后面的内容改为<code>linux dd quiet</code>，回车后会进入一个显示分区情况的界面，找到自己的U盘对应的名字，按照之前的步骤改写启动选项，即可顺利进入安装界面。由于我手头没有设备，因此这一部分没有展示的图片，看起来会比较困难，望见谅！</p><p>进入可视化安装界面后，前面按照自己的需求设置即可，到了有安装源和安装介质的界面，也就来到了本篇经验的核心部分！安装源选择带GNOME的选项，因为图形化界面的安装还是比较困难的。<strong>重点来了</strong> 点击安装介质后，选择自己的HDD，然后选择手动分配分区，进入分区界面后，删除要安装系统的那个分区(如果那部分本来就没有分区的话是最好的)，然后选择自动挂载分区，这个时候如果你的HDD上本来就有EFI分区的话，他会自动选择这一分区为EFI分区，如果安装程序单独划分了一个EFI分区的话(确保这个分区真的是他刚刚划分出来的)，删除这个分区，然后在下面已有的分区中找到EFI分区的位置，把这个分区设置为<code>/boot</code>分区。之后正常安装即可。</p><h2 id="找回Windows10启动项"><a href="#找回Windows10启动项" class="headerlink" title="找回Windows10启动项"></a>找回Windows10启动项</h2><p>如果前面的步骤全都十分顺利，那么我们现在应该已经进入CentOS系统了，而且启动菜单中已经有<code>Windows Boot Manager(on /dev/sda1)</code>的字样，是不是很方便？这一步的原理是，如果我们选择已有的EFI分区作为CentOS的EFI分区的话，安装程序会在这一分区下另外创建引导文件而不删除已有的EFI文件，因此在这个分区的文件格式是<code>FAT32</code>的情况下，启动菜单中自然会有Windows10的启动项。如此一来，自然也就不需要要下载<code>ntfs-3g</code>，输入<code>grub2-mkconfig</code>命令等步骤了。</p><p>可能更常见的情况是，EFI分区是在SSD上的，而且分区格式是<code>NTFS</code>，这种情况下，最稳妥的办法是：安装CentOS时拔掉SSD硬盘，安装完成后装回去，进入CentOS系统，在终端输入<code>sudo yum install ntfs-3g</code>,然后运行命令<code>grub2-mkconfig -o /boot/grub2/grub.cfg</code>。经过以上步骤一般可以找回Windows启动项。</p><p>如果我们想把windows作为默认启动项，可以在启动菜单记录下windows启动项的名称，然后在终端运行命令<code>grub2-set-default &quot;启动项名称&quot;</code>，对我的电脑而言，输入的是<code>grub2-set-default &quot;Windows Boot Manager(on /dev/sda1)&quot;</code>。</p><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>以上内容只是我的个人经验和一家之言，可能不具有很强的普适性，如有问题欢迎联系我讨论，再次声明：以上内容仅供参考，出现问题本人概不负责（=_=）。</p>]]></content>
+    
+    <summary type="html">
+    
+      前言
+自从换了SSD以后，原来机械硬盘上的系统分区就被闲置了，正好最近要用到Linux系统，所以尝试着安装了一下RH系的几个系统。中途遇到了不少坑，而且相关的资料
+并不多。因此我想在这里把自己的经验和大家分享一下。
+
+准备工作
+需要提前下载的东西有:
+
+ * UltraISO
+ * CentOS7 原版镜像
+ * (Fedora Media Writer)
+
+其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用U
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/tags/Linux/"/>
+    
+      <category term="RedHat" scheme="http://gibbonlee.github.io/tags/RedHat/"/>
+    
+      <category term="CentOS" scheme="http://gibbonlee.github.io/tags/CentOS/"/>
+    
+      <category term="双系统" scheme="http://gibbonlee.github.io/tags/%E5%8F%8C%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
   
   <entry>
     <title>react and vue summary</title>
@@ -107,7 +146,7 @@ $ hexo s
     <published>2018-03-18T05:40:08.385Z</published>
     <updated>2018-03-19T14:48:19.151Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="A-sample-of-Markdown-document"><a href="#A-sample-of-Markdown-document" class="headerlink" title="A sample of Markdown document"></a>A sample of Markdown document</h1><hr><h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><p>##<br>我的邮箱：<a href="mailto:&#122;&#x6b;&#x6a;&#105;&#97;&#64;&#x6d;&#x61;&#105;&#108;&#x2e;&#x75;&#115;&#x74;&#x63;&#46;&#101;&#100;&#117;&#x2e;&#99;&#x6e;" target="_blank" rel="noopener">&#122;&#x6b;&#x6a;&#105;&#97;&#64;&#x6d;&#x61;&#105;&#108;&#x2e;&#x75;&#115;&#x74;&#x63;&#46;&#101;&#100;&#117;&#x2e;&#99;&#x6e;</a>,欢迎联系！</p><p>##<br>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="A-sample-of-Markdown-document"><a href="#A-sample-of-Markdown-document" class="headerlink" title="A sample of Markdown document"></a>A sample of Markdown document</h1><hr><h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><p>##<br>我的邮箱：<a href="mailto:&#122;&#107;&#106;&#105;&#x61;&#x40;&#x6d;&#97;&#105;&#108;&#x2e;&#x75;&#115;&#116;&#x63;&#x2e;&#101;&#x64;&#x75;&#x2e;&#x63;&#x6e;" target="_blank" rel="noopener">&#122;&#107;&#106;&#105;&#x61;&#x40;&#x6d;&#97;&#105;&#108;&#x2e;&#x75;&#115;&#116;&#x63;&#x2e;&#101;&#x64;&#x75;&#x2e;&#x63;&#x6e;</a>,欢迎联系！</p><p>##<br>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
     
     <summary type="html">
     
