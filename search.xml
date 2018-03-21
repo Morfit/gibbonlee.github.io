@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Linux下安装ROOT全过程(CentOS系统)]]></title>
+    <url>%2F2018%2F03%2F21%2FROOT%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B%2F</url>
+    <content type="text"><![CDATA[前言本教程完全基于ROOT官方的安装指南,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。 系统需求 一台安装有CentOS系统的电脑(Ubuntu同理) 足够的储存空间 编不出来了 准备工作首先确保你的系统安装了git程序，没有的话在终端安装：sudo yum install git,然后获取最新的安装包：git clone https://github.com/root-project/root.git /usr/local/其中，/usr/local/是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。 然后安装需要的库： $ sudo yum install git cmake gcc-c++ gcc binutils libX11-devel libXpm-devel libXft-devel libXext-devel gcc-gfortran openssl-devel pcre-devel mesa-libGL-devel mesa-libGLU-devel glew-devel ftgl-devel mysql-devel fftw-devel cfitsio-devel graphviz-devel avahi-compat-libdns_sd-devel python-devel libxml2-devel 此外gsl标准库和CMAKE需要单独下载安装，安装方法一般为 : $ tar -zxvf （安装包名称）.tar.gz $ cd (安装包名称) $ ./configure $ make $ make install 用这种方法安装的软件一般被保存在/usr/local/share文件夹中。 开始安装如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在/usr/local下面，否则放在/home的某一个目录下也可以。下假设安装包在/usr/local目录下。一下内容直接用命令行展示，//之后的部分是注释内容。 $ mkdir ROOT6 &amp;&amp; cd ROOT6 //创建ROOT的文件夹 $ cmake ../root //用cmake命令进行安装，由于ROOT6与root文件夹在同一根目录下，因此直接用..代替具体路径，这里改为/usr/local/root也是可以的 $ make -j4 //-j4的意思是同时使用几个线程进行make操作，如果你的电脑是双核四线程的，就是-j4，四核八线程的就是-j8，以此类推。 $ //耐心等待，如果没有报错就是万幸，报错的话检查一下上述的库有没有装全。 至此ROOT就已经安装好了，这时可以测试一下程序是否能顺利启动： $ cd bin $ source ./thisroot.sh $ root 如果屏幕上出现ROOT的启动界面的话，那就安装完成了。 简单的配置实际上没啥好配置的，但是为了防止每次进入root都要运行thisroot.sh，我们把它加到环境变量中。最直接的一种方法： $ vi $HOME/.bashrc 然后在最后一行加上/usr/local/ROOT6/bin/thisroot.sh即可。 结语欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。]]></content>
+      <categories>
+        <category>ROOT学习</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>ROOT</tag>
+        <tag>CERN</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[双硬盘安装CentOS 7+Windows 10]]></title>
     <url>%2F2018%2F03%2F20%2F%E5%8F%8C%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85CentOS%207%2B%20Windows%2010%2F</url>
     <content type="text"><![CDATA[前言自从换了SSD以后，原来机械硬盘上的系统分区就被闲置了，正好最近要用到Linux系统，所以尝试着安装了一下RH系的几个系统。中途遇到了不少坑，而且相关的资料并不多。因此我想在这里把自己的经验和大家分享一下。 准备工作需要提前下载的东西有: UltraISO CentOS7 原版镜像 (Fedora Media Writer) 其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用UltraISO 写入硬盘映像。系统镜像的下载地址我选择了 USTC open source software mirror,比国外的镜像站速度要快不少，当然，你也可以选择阿里云或者网易的镜像站。UltraISO用官方试用版的即可，现在貌似试用版的没有使用期限了，功能也够用。 安装条件检查 First of all，确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！重要的事情说三遍。如果不是UEFI引导的，虽然安装上没有任何问题，但是之后切换系统会让你痛苦万分。 确认硬盘上存在EFI分区，而且这个分区的文件格式是FAT32。分区情况可以在计算机-管理-磁盘管理中看到。还需要注意这一分区所在的位置，是在HDD上还是SDD上，我的是在HDD上的，这是以下内容的前提。如果EFI分区在SDD上，本篇经验可能有不适用的地方，请注意数据安全！ 制作启动U盘首先，准备一个空的8G以上的U盘，这里我不建议使用移动硬盘，因为会麻烦很多，这个我会单独写一篇文章来介绍。 在确保U盘内没有重要文件的前提下，用UltraISO加载CentOS7的iso镜像，然后选择启动-写入硬盘映像所有设置都默认即可。RH系的系统的一个特点是镜像中自带EFI文件，因此不需要专门花功夫去建立引导。 进入安装介质重启电脑，狂点ESC或F2键，进入BIOS界面，在Boot菜单确认引导方式是UEFI而非Legacy Support，然后寻找一个名为Secure Boot的选项，设置为Disabled。这一选项可能存在于Boot或Security菜单，因人而异。然后还是在Boot菜单中，把U盘作为第一启动项，插入U盘后，按F10重启即可进入安装介质。 开始安装从U盘启动后，进入有三个选项的界面，第一个是直接安装CentOS，第二个是测试机器后安装CentOS，第三个是Troubleshooting Mode。把光标移动到第一个选项上，点击键盘上的Tab键或e键，把hd :后面的内容从LABEL=Cent……64改为/dev/sdc4然后回车，试一下是否能进入安装界面，一般而言，centos给U盘分配的分区都是sdc4。如果不行的话，重启，把inst.stage2……后面的内容改为linux dd quiet，回车后会进入一个显示分区情况的界面，找到自己的U盘对应的名字，按照之前的步骤改写启动选项，即可顺利进入安装界面。由于我手头没有设备，因此这一部分没有展示的图片，看起来会比较困难，望见谅！ 进入可视化安装界面后，前面按照自己的需求设置即可，到了有安装源和安装介质的界面，也就来到了本篇经验的核心部分！安装源选择带GNOME的选项，因为图形化界面的安装还是比较困难的。重点来了 点击安装介质后，选择自己的HDD，然后选择手动分配分区，进入分区界面后，删除要安装系统的那个分区(如果那部分本来就没有分区的话是最好的)，然后选择自动挂载分区，这个时候如果你的HDD上本来就有EFI分区的话，他会自动选择这一分区为EFI分区，如果安装程序单独划分了一个EFI分区的话(确保这个分区真的是他刚刚划分出来的)，删除这个分区，然后在下面已有的分区中找到EFI分区的位置，把这个分区设置为/boot分区。之后正常安装即可。 找回Windows10启动项如果前面的步骤全都十分顺利，那么我们现在应该已经进入CentOS系统了，而且启动菜单中已经有Windows Boot Manager(on /dev/sda1)的字样，是不是很方便？这一步的原理是，如果我们选择已有的EFI分区作为CentOS的EFI分区的话，安装程序会在这一分区下另外创建引导文件而不删除已有的EFI文件，因此在这个分区的文件格式是FAT32的情况下，启动菜单中自然会有Windows10的启动项。如此一来，自然也就不需要要下载ntfs-3g，输入grub2-mkconfig命令等步骤了。 可能更常见的情况是，EFI分区是在SSD上的，而且分区格式是NTFS，这种情况下，最稳妥的办法是：安装CentOS时拔掉SSD硬盘，安装完成后装回去，进入CentOS系统，在终端输入sudo yum install ntfs-3g,然后运行命令grub2-mkconfig -o /boot/grub2/grub.cfg。经过以上步骤一般可以找回Windows启动项。 如果我们想把windows作为默认启动项，可以在启动菜单记录下windows启动项的名称，然后在终端运行命令grub2-set-default &quot;启动项名称&quot;，对我的电脑而言，输入的是grub2-set-default &quot;Windows Boot Manager(on /dev/sda1)&quot;。 结束语以上内容只是我的个人经验和一家之言，可能不具有很强的普适性，如有问题欢迎联系我讨论，再次声明：以上内容仅供参考，出现问题本人概不负责（=_=）。]]></content>
@@ -20,8 +33,14 @@
     <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
   </entry>
   <entry>
-    <title></title>
+    <title><![CDATA[A sample of Markdown document]]></title>
     <url>%2F2018%2F03%2F18%2F1%2F</url>
-    <content type="text"><![CDATA[A sample of Markdown document Title这是一个简单的markdown文档的例子。如果我们想在C++中用printf()输出 hello，&amp;world！ 只需要编写以下内容： 123456#include&lt;iostream&gt;int main()&#123; std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl; return 0;&#125; 这里引用了《嘿嘿嘿》一书中的内容： 嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。 嘿嘿嘿嘿嘿，嘿嘿嘿！ 大致总结一下，有以下几个要点： 嘿 嘿嘿 嘿嘿嘿 换言之： 嘿 嘿嘿 嘿嘿嘿 此书可以在Google上找到。Google的网站logo十分有趣： 这个图片的源地址是：https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png ##我的邮箱：&#x7a;&#x6b;&#106;&#x69;&#97;&#x40;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x75;&#115;&#116;&#99;&#x2e;&#101;&#100;&#117;&#x2e;&#x63;&#x6e;,欢迎联系！ ##本文参考的文章有*appinn*网站上的Markdown文档。十分感谢!]]></content>
+    <content type="text"><![CDATA[sample这是一个简单的markdown文档的例子。如果我们想在C++中用printf()输出 hello，&amp;world！ 只需要编写以下内容： 12345int main()&#123; std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl; return 0;&#125; 这里引用了《嘿嘿嘿》一书中的内容： 嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。 嘿嘿嘿嘿嘿，嘿嘿嘿！ 大致总结一下，有以下几个要点： 嘿 嘿嘿 嘿嘿嘿 换言之： 嘿 嘿嘿 嘿嘿嘿 此书可以在Google上找到。Google的网站logo十分有趣： 这个图片的源地址是：https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png Contact我的邮箱：&#122;&#x6b;&#x6a;&#x69;&#x61;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#117;&#115;&#116;&#99;&#46;&#x65;&#x64;&#117;&#46;&#99;&#x6e;,欢迎联系！ Thanks本文参考的文章有*appinn*网站上的Markdown文档。十分感谢!]]></content>
+      <categories>
+        <category>Markdown</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
   </entry>
 </search>

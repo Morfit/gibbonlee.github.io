@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>HeiHeiHei</title>
+  <title>ブログだけでなく</title>
   
   <subtitle>Live for wisdom. Live to death</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gibbonlee.github.io/"/>
-  <updated>2018-03-21T04:18:19.773Z</updated>
+  <updated>2018-03-21T10:09:25.548Z</updated>
   <id>http://gibbonlee.github.io/</id>
   
   <author>
@@ -15,6 +15,41 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Linux下安装ROOT全过程(CentOS系统)</title>
+    <link href="http://gibbonlee.github.io/2018/03/21/ROOT%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+    <id>http://gibbonlee.github.io/2018/03/21/ROOT安装教程/</id>
+    <published>2018-03-21T09:23:00.000Z</published>
+    <updated>2018-03-21T10:09:25.548Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本教程完全基于ROOT官方的<a href="https://root.cern.ch/building-root" title="Building ROOT" target="_blank" rel="noopener">安装指南</a>,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。</p><h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ol><li>一台安装有CentOS系统的电脑(Ubuntu同理)</li><li>足够的储存空间</li><li>编不出来了</li></ol><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先确保你的系统安装了<code>git</code>程序，没有的话在终端安装：<code>sudo yum install git</code>,然后获取最新的安装包：<code>git clone https://github.com/root-project/root.git /usr/local/</code>其中，<code>/usr/local/</code>是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。</p><p>然后安装需要的库：</p><pre><code>$ sudo yum install git cmake gcc-c++ gcc binutils libX11-devel libXpm-devel libXft-devel libXext-devel gcc-gfortran openssl-devel pcre-devel mesa-libGL-devel mesa-libGLU-devel glew-devel ftgl-devel mysql-devel fftw-devel cfitsio-devel graphviz-devel avahi-compat-libdns_sd-devel python-devel libxml2-devel</code></pre><p>此外<a href="http://mirrors.ustc.edu.cn/gnu/gsl/gsl-latest.tar.gz gsl-latest.tar.gz" target="_blank" rel="noopener">gsl标准库</a>和<a href="https://cmake.org/files/v3.11/cmake-3.11.0-rc4.tar.gz cmake3.11.0" target="_blank" rel="noopener">CMAKE</a>需要单独下载安装，安装方法一般为 :</p><pre><code>$ tar -zxvf （安装包名称）.tar.gz$ cd (安装包名称)$ ./configure$ make$ make install</code></pre><p>用这种方法安装的软件一般被保存在<code>/usr/local/share</code>文件夹中。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在<code>/usr/local</code>下面，否则放在<code>/home</code>的某一个目录下也可以。下假设安装包在<br><code>/usr/local</code>目录下。一下内容直接用命令行展示，<code>//</code>之后的部分是注释内容。</p><pre><code>$ mkdir ROOT6 &amp;&amp; cd ROOT6  //创建ROOT的文件夹$ cmake ../root    //用cmake命令进行安装，由于ROOT6与root文件夹在同一根目录下，因此直接用..代替具体路径，这里改为/usr/local/root也是可以的$ make -j4  //-j4的意思是同时使用几个线程进行make操作，如果你的电脑是双核四线程的，就是-j4，四核八线程的就是-j8，以此类推。$ //耐心等待，如果没有报错就是万幸，报错的话检查一下上述的库有没有装全。</code></pre><p>至此ROOT就已经安装好了，这时可以测试一下程序是否能顺利启动：</p><pre><code>$ cd bin$ source ./thisroot.sh$ root</code></pre><p>如果屏幕上出现ROOT的启动界面的话，那就安装完成了。</p><h2 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h2><p>实际上没啥好配置的，但是为了防止每次进入root都要运行<code>thisroot.sh</code>，我们把它加到环境变量中。最直接的一种方法：</p><pre><code>$ vi $HOME/.bashrc</code></pre><p>然后在最后一行加上<code>/usr/local/ROOT6/bin/thisroot.sh</code>即可。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。</p>]]></content>
+    
+    <summary type="html">
+    
+      前言
+本教程完全基于ROOT官方的安装指南,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。
+
+系统需求
+ 1. 一台安装有CentOS系统的电脑(Ubuntu同理)
+ 2. 足够的储存空间
+ 3. 编不出来了
+
+准备工作
+首先确保你的系统安装了git程序，没有的话在终端安装：sudo yum install git,然后获取最新的安装包：git clone https://github.com/root-project/root.git /usr/local/其中，/usr/local/是你想要安装ROO
+    
+    </summary>
+    
+      <category term="ROOT学习" scheme="http://gibbonlee.github.io/categories/ROOT%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/tags/Linux/"/>
+    
+      <category term="ROOT" scheme="http://gibbonlee.github.io/tags/ROOT/"/>
+    
+      <category term="CERN" scheme="http://gibbonlee.github.io/tags/CERN/"/>
+    
+  </entry>
   
   <entry>
     <title>双硬盘安装CentOS 7+Windows 10</title>
@@ -90,21 +125,17 @@ $ hexo s
   </entry>
   
   <entry>
-    <title></title>
+    <title>A sample of Markdown document</title>
     <link href="http://gibbonlee.github.io/2018/03/18/1/"/>
     <id>http://gibbonlee.github.io/2018/03/18/1/</id>
-    <published>2018-03-18T05:40:08.385Z</published>
-    <updated>2018-03-19T14:48:19.151Z</updated>
+    <published>2018-03-18T07:00:00.000Z</published>
+    <updated>2018-03-21T09:17:56.342Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="A-sample-of-Markdown-document"><a href="#A-sample-of-Markdown-document" class="headerlink" title="A sample of Markdown document"></a>A sample of Markdown document</h1><hr><h2 id="Title"><a href="#Title" class="headerlink" title="Title"></a>Title</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><p>##<br>我的邮箱：<a href="mailto:&#x7a;&#x6b;&#106;&#x69;&#97;&#x40;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x75;&#115;&#116;&#99;&#x2e;&#101;&#100;&#117;&#x2e;&#x63;&#x6e;" target="_blank" rel="noopener">&#x7a;&#x6b;&#106;&#x69;&#97;&#x40;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x75;&#115;&#116;&#99;&#x2e;&#101;&#100;&#117;&#x2e;&#x63;&#x6e;</a>,欢迎联系！</p><p>##<br>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>我的邮箱：<a href="mailto:&#122;&#x6b;&#x6a;&#x69;&#x61;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#117;&#115;&#116;&#99;&#46;&#x65;&#x64;&#117;&#46;&#99;&#x6e;" target="_blank" rel="noopener">&#122;&#x6b;&#x6a;&#x69;&#x61;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#117;&#115;&#116;&#99;&#46;&#x65;&#x64;&#117;&#46;&#99;&#x6e;</a>,欢迎联系！</p><h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><p>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
     
     <summary type="html">
     
-      A sample of Markdown document
-
-
-
-Title
+      sample
 这是一个简单的markdown文档的例子。如果我们想在C++中用printf()输出 hello，&amp;world！ 只需要编写以下内容：
 
 1
@@ -112,10 +143,8 @@ Title
 3
 4
 5
-6
 
 
-#include&lt;iostream&gt;
 int main()
 {
 	std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;
@@ -125,10 +154,22 @@ int main()
 
 这里引用了《嘿嘿嘿》一书中的内容：
 
-嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿
+嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。
+
+嘿嘿嘿嘿嘿，嘿嘿嘿！
+
+大致总结一下，有以下几个要点：
+
+ 1. 嘿
+ 2. 嘿嘿
+ 3. 嘿嘿
     
     </summary>
     
+      <category term="Markdown" scheme="http://gibbonlee.github.io/categories/Markdown/"/>
+    
+    
+      <category term="Markdown" scheme="http://gibbonlee.github.io/tags/Markdown/"/>
     
   </entry>
   
