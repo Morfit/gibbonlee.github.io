@@ -85,7 +85,7 @@
 <meta property="og:site_name" content="ブログだけでなく">
 <meta property="og:description" content="前言 本教程完全基于ROOT官方的安装指南,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。  系统需求  1. 一台安装有CentOS系统的电脑(Ubuntu同理)  2. 足够的储存空间  3. 编不出来了  准备工作 首先确保你的系统安装了git程序，没有的话在终端安装：sudo yum install">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-21T10:09:25.548Z">
+<meta property="og:updated_time" content="2018-03-26T10:56:40.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux下安装ROOT全过程(CentOS系统)">
 <meta name="twitter:description" content="前言 本教程完全基于ROOT官方的安装指南,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。  系统需求  1. 一台安装有CentOS系统的电脑(Ubuntu同理)  2. 足够的储存空间  3. 编不出来了  准备工作 首先确保你的系统安装了git程序，没有的话在终端安装：sudo yum install">
@@ -98,7 +98,7 @@
     root: '/',
     scheme: 'Muse',
     version: '5.1.3',
-    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
     fancybox: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
@@ -155,6 +155,8 @@
   <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
+    <a href="https://github.com/GibbonLee/gibbonlee.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
@@ -203,7 +205,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            一览
           </a>
         </li>
       
@@ -233,7 +235,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
-            关于
+            不要点
           </a>
         </li>
       
@@ -388,6 +390,37 @@
           
 
           
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  689
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
 
           
 
@@ -404,23 +437,25 @@
       
 
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本教程完全基于ROOT官方的<a href="https://root.cern.ch/building-root" title="Building ROOT" target="_blank" rel="noopener">安装指南</a>,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。</p>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>本教程完全基于ROOT官方的<a href="https://root.cern.ch/building-root" title="Building ROOT" target="_blank" rel="noopener">安装指南</a>,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。</p>
+</blockquote>
 <h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ol>
 <li>一台安装有CentOS系统的电脑(Ubuntu同理)</li>
 <li>足够的储存空间</li>
 <li>编不出来了</li>
 </ol>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先确保你的系统安装了<code>git</code>程序，没有的话在终端安装：<code>sudo yum install git</code>,然后获取最新的安装包：<code>git clone https://github.com/root-project/root.git /usr/local/</code>其中，<code>/usr/local/</code>是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。</p>
-<p>然后安装需要的库：</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>　　首先确保你的系统安装了<code>git</code>程序，没有的话在终端安装：<code>sudo yum install git</code>,然后获取最新的安装包：<code>git clone https://github.com/root-project/root.git /usr/local/</code>其中，<code>/usr/local/</code>是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。</p>
+<p>　　然后安装需要的库：</p>
 <pre><code>$ sudo yum install git cmake gcc-c++ gcc binutils libX11-devel libXpm-devel libXft-devel libXext-devel gcc-gfortran openssl-devel pcre-devel mesa-libGL-devel mesa-libGLU-devel glew-devel ftgl-devel mysql-devel fftw-devel cfitsio-devel graphviz-devel avahi-compat-libdns_sd-devel python-devel libxml2-devel
-</code></pre><p>此外<a href="http://mirrors.ustc.edu.cn/gnu/gsl/gsl-latest.tar.gz gsl-latest.tar.gz" target="_blank" rel="noopener">gsl标准库</a>和<a href="https://cmake.org/files/v3.11/cmake-3.11.0-rc4.tar.gz cmake3.11.0" target="_blank" rel="noopener">CMAKE</a>需要单独下载安装，安装方法一般为 :</p>
+</code></pre><p>　　此外<a href="http://mirrors.ustc.edu.cn/gnu/gsl/gsl-latest.tar.gz gsl-latest.tar.gz" target="_blank" rel="noopener">gsl标准库</a>和<a href="https://cmake.org/files/v3.11/cmake-3.11.0-rc4.tar.gz cmake3.11.0" target="_blank" rel="noopener">CMAKE</a>需要单独下载安装，安装方法一般为 :</p>
 <pre><code>$ tar -zxvf （安装包名称）.tar.gz
 $ cd (安装包名称)
 $ ./configure
 $ make
 $ make install
-</code></pre><p>用这种方法安装的软件一般被保存在<code>/usr/local/share</code>文件夹中。</p>
-<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在<code>/usr/local</code>下面，否则放在<code>/home</code>的某一个目录下也可以。下假设安装包在<br><code>/usr/local</code>目录下。一下内容直接用命令行展示，<code>//</code>之后的部分是注释内容。</p>
+</code></pre><p>　　用这种方法安装的软件一般被保存在<code>/usr/local/share</code>文件夹中。</p>
+<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>　　如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在<code>/usr/local</code>下面，否则放在<code>/home</code>的某一个目录下也可以。下假设安装包在<br><code>/usr/local</code>目录下。一下内容直接用命令行展示，<code>//</code>之后的部分是注释内容。</p>
 <pre><code>$ mkdir ROOT6 &amp;&amp; cd ROOT6  //创建ROOT的文件夹
 $ cmake ../root    //用cmake命令进行安装，由于ROOT6与root文件夹在同一根目录下，因此直接用..代替具体路径，这里改为/usr/local/root也是可以的
 $ make -j4  //-j4的意思是同时使用几个线程进行make操作，如果你的电脑是双核四线程的，就是-j4，四核八线程的就是-j8，以此类推。
@@ -429,11 +464,11 @@ $ //耐心等待，如果没有报错就是万幸，报错的话检查一下上�
 <pre><code>$ cd bin
 $ source ./thisroot.sh
 $ root
-</code></pre><p>如果屏幕上出现ROOT的启动界面的话，那就安装完成了。</p>
-<h2 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h2><p>实际上没啥好配置的，但是为了防止每次进入root都要运行<code>thisroot.sh</code>，我们把它加到环境变量中。最直接的一种方法：</p>
+</code></pre><p>　　如果屏幕上出现ROOT的启动界面的话，那就安装完成了。</p>
+<h2 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h2><p>　　实际上没啥好配置的，但是为了防止每次进入root都要运行<code>thisroot.sh</code>，我们把它加到环境变量中。最直接的一种方法：</p>
 <pre><code>$ vi $HOME/.bashrc
-</code></pre><p>然后在最后一行加上<code>/usr/local/ROOT6/bin/thisroot.sh</code>即可。</p>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。</p>
+</code></pre><p>然后在最后一行加上<code>source /usr/local/ROOT6/bin/thisroot.sh</code>即可。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。</p>
 
       
     </div>
@@ -446,16 +481,34 @@ $ root
     
 
     
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    GibbonLee
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://gibbonlee.github.io/2018/03/21/ROOT安装教程/" title="Linux下安装ROOT全过程(CentOS系统)">http://gibbonlee.github.io/2018/03/21/ROOT安装教程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
 
     <footer class="post-footer">
       
         <div class="post-tags">
           
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
           
-            <a href="/tags/ROOT/" rel="tag"># ROOT</a>
+            <a href="/tags/ROOT/" rel="tag"><i class="fa fa-tag"></i> ROOT</a>
           
-            <a href="/tags/CERN/" rel="tag"># CERN</a>
+            <a href="/tags/CERN/" rel="tag"><i class="fa fa-tag"></i> CERN</a>
           
         </div>
       
@@ -463,6 +516,10 @@ $ root
       
       
         <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
         
 
         
@@ -492,6 +549,10 @@ $ root
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/25/Linux命令行的简单使用/" rel="prev" title="Linux命令行的简单介绍">
+                Linux命令行的简单介绍 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -558,7 +619,7 @@ $ root
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
+            概览
           </li>
         </ul>
       
@@ -582,7 +643,7 @@ $ root
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -593,7 +654,7 @@ $ root
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -604,7 +665,7 @@ $ root
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -646,6 +707,12 @@ $ root
           
 
           
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+              </a>
+            </div>
           
 
           
@@ -693,6 +760,13 @@ $ root
       
 
       
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
 
     </div>
   </aside>
@@ -710,6 +784,15 @@ $ root
   </span>
   <span class="author" itemprop="copyrightHolder">GibbonLee</span>
 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">6.2k</span>
   
 </div>
 
@@ -735,11 +818,6 @@ $ root
       </div>
     </footer>
 
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
     
 
     
@@ -1251,8 +1329,47 @@ $ root
   </script>
 
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 10504,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 

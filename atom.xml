@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gibbonlee.github.io/"/>
-  <updated>2018-03-21T10:09:25.548Z</updated>
+  <updated>2018-03-26T11:00:28.872Z</updated>
   <id>http://gibbonlee.github.io/</id>
   
   <author>
@@ -17,13 +17,116 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Linux下安装Geant 4全过程(CentOS系统)</title>
+    <link href="http://gibbonlee.github.io/2018/03/25/Geant4%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
+    <id>http://gibbonlee.github.io/2018/03/25/Geant4安装教程/</id>
+    <published>2018-03-25T14:10:00.000Z</published>
+    <updated>2018-03-26T11:00:28.872Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的<a href="https://leeyeel.github.io/2017/07/01/geant4-install/" title="Geant4安装过程-leeyeel" target="_blank" rel="noopener">Geant4安装过程</a>以及Geant4官方的<a href="http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html Geant4 Installation Guide" target="_blank" rel="noopener">安装指南</a>。</p></blockquote><h2 id="关于Geant4"><a href="#关于Geant4" class="headerlink" title="关于Geant4"></a>关于Geant4</h2><p>　　Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：</p><ul><li>系统的几何构成</li><li>所用的材料</li><li>基本粒子</li><li>发生的主要过程</li><li>粒子穿过物质和电磁场的轨迹</li><li>主导粒子相互作用的物理过程</li><li>灵敏探测器组件的响应</li><li>事件数据的生成</li><li>对事件和轨迹的记录</li><li>探测器和粒子轨迹的可视化，以及在不同区间与分辨率下对模拟数据的获取和分析</li></ul><p>Geant4的核心是一整套描述粒子相互作用的物理模型，它覆盖了十分宽泛的能量范围。Geant4从很多来源上获取了大量的数据和专业知识，从这一方面来看，Geant4作为一个数据库覆盖了目前已知的关于粒子相互作用的大部分知识。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>　　安装好依赖库之后，使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install libXmu.x86_64 libXmu-devel.x86_64</span><br></pre></td></tr></table></figure></p><p>安装好X11和Xmu的软件包，缺少这两个软件是安装中报错的常见问题。此外，为了实现可视化，我们需要安装Qt。最简单的方法是使用命令安装<code>$ yum install qt4 qt4*</code>。虽然Geant4的安装配置文档中说Geant4在安装时会优先寻找Qt5软件，但是实际安装时我发现Geant4对Qt5的支持并不好，总是提示找不到Qt软件，所以我们索性先安装上Qt4软件，后期使用时再根据自己的需求安装Qt5。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>　　首先我们从Geant4的<a href="http://geant4.web.cern.ch/geant4/support/download.shtml Geant4 Software Download" target="_blank" rel="noopener">下载页面</a>上把源文件和数据文件都下载下来，然后把数据文件都解压到一个自己创建的名为data的文件夹中，留着安装时用。然后把源码解压到我们想要安装Geant4的地方并重命名为<code>Geant4s</code>，这里以<code>/usr/local/</code>为例。直接用命令展示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir geant4-build &amp;&amp; cd geant4-build</span><br><span class="line">$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/geant4/ -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_USE_RAYTRACER_X11=ON -DGEANT4_USE_QT=ON GEANT4_BUILD_MULTITHREADED=ON /usr/local/geant4s</span><br><span class="line">$ make -jN</span><br><span class="line">$ make install -jN</span><br></pre></td></tr></table></figure></p><p>其中，<code>-DCMAKE_ISNTALL_PREFIX</code>指示了你要安装Geant4的位置，可以根据自己的需求调整；<code>-DGEANT4_USE_OENGL_X11=ON -DGEANT4_USE_RAYTRACER_X11=ON</code>开启了可视化；<code>-DGEANT4_USE_QT=ON</code>表示允许调用Qt界面；<code>GEANT4_BUILD_MULTITHREADED=ON</code>开启了多线程’此功能只适用于UNIX系统’；<code>make</code>命令中的N替换为自己cpu的线程数。</p><h2 id="安装之后"><a href="#安装之后" class="headerlink" title="安装之后"></a>安装之后</h2><p>　　首先把之前制作好的data文件夹移动到<code>geant4/share/Geant4-X/</code>文件夹下，X对应你的Geant4版本号。然后在同一目录下查找<code>geant4make</code>文件夹，使用命令<code>$ source geant4make.sh</code>，或用命令<code>$ vi $HOME/.bashrc</code>把<code>source [path]/geant4make.sh</code>添加进去，其中<code>[path]</code>是<code>geant4make.sh</code>的路径。<br>　　之后可以运行一个例子来试验一下软件是否能正常运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/geant4/share/Geant4-10.04.p01/examples/basic/B1</span><br><span class="line">$ make -j4</span><br><span class="line">$exampleB1</span><br></pre></td></tr></table></figure></p><p>此时Geant4应该会调用Qt界面显示出一个电子散射的例子。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　我自己在安装Geant4时也遇到了许多坑，这篇教程可能也有一些不恰当或不全面的地方，欢迎联系我讨论！</p>]]></content>
+    
+    <summary type="html">
+    
+      前言
+这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的Geant4安装过程以及Geant4官方的安装指南。
+
+关于Geant4
+Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：
+
+ * 系统的几何构成
+ * 所用的材料
+ * 基本粒子
+ * 发生的主要过程
+ * 粒子穿过物质和电磁场的轨迹
+ * 主导粒子相互作用的物理过程
+ * 灵敏探测器组件的响应
+ * 事件数据的生成
+
+    
+    </summary>
+    
+      <category term="Geant 4学习" scheme="http://gibbonlee.github.io/categories/Geant-4%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/tags/Linux/"/>
+    
+      <category term="CERN" scheme="http://gibbonlee.github.io/tags/CERN/"/>
+    
+      <category term="Geant 4" scheme="http://gibbonlee.github.io/tags/Geant-4/"/>
+    
+      <category term="Qt" scheme="http://gibbonlee.github.io/tags/Qt/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>利用系统安装盘修复Windows10引导</title>
+    <link href="http://gibbonlee.github.io/2018/03/25/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9B%98%E4%BF%AE%E5%A4%8DWindows10%E5%BC%95%E5%AF%BC/"/>
+    <id>http://gibbonlee.github.io/2018/03/25/系统安装盘修复Windows10引导/</id>
+    <published>2018-03-25T14:08:21.886Z</published>
+    <updated>2018-03-25T14:22:04.935Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>　　深渊巨坑，有空再填！</p>]]></content>
+    
+    <summary type="html">
+    
+      前言
+深渊巨坑，有空再填！
+    
+    </summary>
+    
+      <category term="Windows使用技巧" scheme="http://gibbonlee.github.io/categories/Windows%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+    
+    
+      <category term="命令行" scheme="http://gibbonlee.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+      <category term="Windows" scheme="http://gibbonlee.github.io/tags/Windows/"/>
+    
+      <category term="引导修复" scheme="http://gibbonlee.github.io/tags/%E5%BC%95%E5%AF%BC%E4%BF%AE%E5%A4%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Linux命令行的简单介绍</title>
+    <link href="http://gibbonlee.github.io/2018/03/25/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/"/>
+    <id>http://gibbonlee.github.io/2018/03/25/Linux命令行的简单使用/</id>
+    <published>2018-03-25T08:11:00.000Z</published>
+    <updated>2018-03-25T14:03:40.906Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>　　作为Linux初学者的一员，相信很多人和我一样一开始也被它的命令行界面吓住，好在现在的发行版本多带有图形界面，极大的降低了入门门槛，有什么需要的命令也可以直接去网上搜。本文将分小结介绍，我们日常可能用的到的一些命令及其用法，而且随着我自己的不断学习，这篇文章也会不断变大。我试图做一个类似于命令字典一样的东西，给需要的人一些便利。</p></blockquote><h2 id="命令行界面及终端"><a href="#命令行界面及终端" class="headerlink" title="命令行界面及终端"></a>命令行界面及终端</h2><p>　　如果你像我一样是直接安装的图形界面的话，那么你可能对如何进入命令行界面和终端有一些疑惑。关于切换命令行界面，在CentOS下，同时按下<code>Ctrl+ Alt +(Number)</code>可以在各个界面之间切换，默认的进入界面对应的是<code>Ctrl+ Alt+ 1</code>,选择其他数字即会进入默认的命令行界面。</p><p>　　如果你只是想在图形界面打开终端的话，在GNOME下，我们可以先简单设置一下：点击右上角的电量图标-&gt;选择“设置”-&gt;进入键盘选项，在界面尾端选择添加热键，热键名称任意，内容填写<code>gnome-terminal</code>，热键设置成自己喜欢的组合键即可，例如<code>Ctrl+ Alt+ T</code>或者<code>Ctrl+ Shift+ ESC</code>。以后只需要用热键即可打开终端。此外，CentOS集成了右键打开终端的功能，也能很方便的在当前文件夹下打开终端。如果你用的是Fedora发行版，它自带的GNOME组件不是很多，因此右键打开终端的功能需要单独安装，安装命令如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yum -y install nautilus-open-terminal</span><br></pre></td></tr></table></figure><p>　　相应的，如果我们默认是从命令行界面启动的话，想要进入图形界面只需要输入命令<code>startx</code>，当然，前提是你安装了图形界面。</p><h2 id="浏览、查看、更改文件"><a href="#浏览、查看、更改文件" class="headerlink" title="浏览、查看、更改文件"></a>浏览、查看、更改文件</h2><p>　　浏览文件最常用的两个命令就是<code>cd</code>和<code>ls</code>,两个命令的使用格式都是<code>命令 [路径]</code>，当路径为空时，使用<code>cd</code>命令会返回当前用户的根目录，使用<code>ls</code>命令会列出当前文件夹下的文件。举个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/    //进入/usr/local/文件夹</span><br><span class="line">$ cd //返回根目录，对于普通用户，会返回$HOME目录，对于root用户，会返回/root/目录</span><br><span class="line">$ cd .. //返回上一级目录</span><br><span class="line">$ ls  //列出当前文件夹下的文件</span><br><span class="line">$ ls /usr/local/ //列出/usr/local/目录下的文件</span><br></pre></td></tr></table></figure></p><p>　　对于一般的文本类文件，我们可以用<code>vi</code>命令快速查看和修改文件，比如，在当前目录下有一个名为<code>1.txt</code>的文本文档，使用命令<code>vi 1.txt</code>可以查看文档内容，如果想要更改文档内容，按一下键盘上的<code>i</code>键即可进入插入模式，更改完之后，先按<code>:</code>，然后输入<code>wq</code>后回车即可保存更改的内容并退出vi界面，如果不想保存的话，输入<code>q!</code>加回车可强制退出vi界面，此外，在<code>wq</code>后面加！可以强制保存更改，但是这种做法很危险。如果想要查看的文件不在当前目录下的话，可以用命令<code>vi [路径]/[文件名]</code>来查看，例如：<code>vi $HOME/Documents/1.txt</code>。特别的，<code>vi</code>命令不仅可以用来查看文件，还可以新建文件，如果当前文件夹下没有<code>1.txt</code>文件的话，<code>vi 1.txt</code>会新建一个<code>1.txt</code>在当前目录，但是，只有你编辑了他的内容并且保存之后它才会被真正写入硬盘。</p><h2 id="文件及文件夹操作"><a href="#文件及文件夹操作" class="headerlink" title="文件及文件夹操作"></a>文件及文件夹操作</h2><p>　　这一部分我将通过一个例子，尽可能的把文件及文件夹操作展示出来，而不是用文字去描述,跟着这个例子操作一遍相信能大体上对文件的操作有一定了解：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">$ cd //返回根目录</span><br><span class="line">$ cd Documents //进入Documents文件夹</span><br><span class="line">$ mkdir file1  //创建文件夹 file1</span><br><span class="line">$ cd file1  //进入文件夹 file1</span><br><span class="line">$ vi 1.txt    //随便写一点东西进去，创建出文件即可</span><br><span class="line"> * * * * *</span><br><span class="line">$ cd .. //返回上级目录</span><br><span class="line">$ mv file1 file2 //把file1文件夹重命名为file2</span><br><span class="line">$ cp -r file2 file1 //复制file2文件夹及里面的内容，粘贴到当前目录下，命名为file1</span><br><span class="line">$ cd file2 //进入文件夹 file2</span><br><span class="line">$ rm -rf 1.txt //强制删除文件 1.txt</span><br><span class="line">$ cd .. </span><br><span class="line">$ cd file1</span><br><span class="line">$ cp 1.txt ../file2/2.txt //将1.txt复制到上一级目录下的file2文件夹中并命名为2.txt</span><br><span class="line">$ cp 1.txt $HOME/Documents/file2/ //将1.txt复制到$HOME/Documents/file2文件夹中，名字保持不变</span><br><span class="line">$ cd file2 //可以看一下现在文件夹 file2中应该有1.txt和2.txt</span><br><span class="line">$ cd .. </span><br><span class="line">$ rm -rf file2 //把file2文件夹连同里面的内容一并删除</span><br></pre></td></tr></table></figure></p><h2 id="下载、解压、安装软件"><a href="#下载、解压、安装软件" class="headerlink" title="下载、解压、安装软件"></a>下载、解压、安装软件</h2><p>　　CentOS下安装软件一般有三种方式：源码编译，yum命令安装以及rpm安装包安装。下面将分别介绍这三种安装方式。</p><h3 id="yum命令安装"><a href="#yum命令安装" class="headerlink" title="yum命令安装"></a>yum命令安装</h3><p>　　实际上这一部分内容应该放在比较靠前的位置来讲，第一次进入系统，配置好网络，打开终端，不管三七二十一，先输入命令<code>$ sudo yum -y update</code>总是没错的。<code>sudo</code>命令是普通用户临时使用需要root权限的命令的一种方式，<code>yum update</code>能够从已有的软件源中查询可升级软件并自动升级。关于软件源的配置，可查看网页<a href="http://mirrors.ustc.edu.cn/help/" title="USTC Mirrors Help" target="_blank" rel="noopener">配置软件源</a>。RH系系统常用的软件源除了系统自带的软件源外，还有repo和elrepo。<br>　　言归正传，在已知软件名，并且该软件已经被收录到软件源中了的话，使用命令<code>yum install [软件名]</code>即可安装软件及其依赖的库，十分方便。例如：<code>$ yum install -y ntfs-3g</code> 这是在Linux下识别ntfs文件格式的软件，可以说是Linux必备软件之一了。</p><h3 id="下载软件安装包"><a href="#下载软件安装包" class="headerlink" title="下载软件安装包"></a>下载软件安装包</h3><p>　　常见软件安装包的格式包括<code>.tar.gz</code>,<code>.tar.xz</code>,<code>.rpm</code>(对于RH系系统来说)，下载十分简单，获取了安装包的地址之后，使用命令<code>wget [下载地址] [下载路径]/(安装包名称)</code>即可保存安装包，这个命令中，下载地址一定要以http或https开头否则命令会报错，安装路径默认是当前文件夹，安装包名称默认是原来的名字，按照上面的格式可以对这两项进行修改。此外，如果我们要下载的代码托管在<a href="http://github.com GitHub" target="_blank" rel="noopener">GitHub</a>上的话，我们还可能用到命令<code>git clone [代码地址] [下载路径]/(文件夹名称)</code>来下载包含有全部源码的文件夹。</p><h3 id="rpm安装包的安装"><a href="#rpm安装包的安装" class="headerlink" title="rpm安装包的安装"></a>rpm安装包的安装</h3><p>　　使用命令<code>rpm -ivh [路径]/安装包名称</code>即可进行安装，rpm安装包的安装路径是打包时设置好的，用户无法更改。</p><h3 id="解压源码包"><a href="#解压源码包" class="headerlink" title="解压源码包"></a>解压源码包</h3><p>　　对于<code>.tar.gz</code>格式的压缩文件，使用命令<code>tar -zxvf [文件路径]/[文件名] [解压路径]/</code>即可解压压缩包到特定路径。对于<code>.tar.xz</code>格式的文件，使用命令<code>xz -d [文件路径]/[文件名] [解压路径]/</code>得到<code>.tar</code>格式的文件，然后用命令<code>tar -xvf [文件路径]/[文件名] [解压路径]/</code>将文件最终解压出来。</p><h3 id="编译源码"><a href="#编译源码" class="headerlink" title="编译源码"></a>编译源码</h3><p>　　首先将包含源码的文件夹转移到我们希望安装软件的位置，然后进入文件夹，依次输入一下命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ /.configure</span><br><span class="line">$ make -jN  //N是你的cpu可调用的线程数</span><br><span class="line">$ make install -jN</span><br></pre></td></tr></table></figure></p><p>如果全程没有报错的话，安装就完成了，常见的安装问题可能包括缺少依赖的库，安装包损坏等，需要根据特定情况找特定的解决方法。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　掌握了以上命令之后，我个人感觉已经可以用Linux干很多事情了，最后需要提醒的一点是，善用<code>Tab</code>键能很快的补全命令和路径，祝各位学习愉快！</p>]]></content>
+    
+    <summary type="html">
+    
+      前言
+作为Linux初学者的一员，相信很多人和我一样一开始也被它的命令行界面吓住，好在现在的发行版本多带有图形界面，极大的降低了入门门槛，有什么需要的命令也可以直接去网上搜。本文将分小结介绍，我们日常可能用的到的一些命令及其用法，而且随着我自己的不断学习，这篇文章也会不断变大。我试图做一个类似于命令字典一样的东西，给需要的人一些便利。
+
+命令行界面及终端
+如果你像我一样是直接安装的图形界面的话，那么你可能对如何进入命令行界面和终端有一些疑惑。关于切换命令行界面，在CentOS下，同时按下Ctrl+ Alt +(Number)可以在各个界面之间切换，默认的进入界面对应的是Ctrl+ Alt+ 1
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/categories/Linux/"/>
+    
+    
+      <category term="Linux" scheme="http://gibbonlee.github.io/tags/Linux/"/>
+    
+      <category term="RedHat" scheme="http://gibbonlee.github.io/tags/RedHat/"/>
+    
+      <category term="CentOS" scheme="http://gibbonlee.github.io/tags/CentOS/"/>
+    
+      <category term="命令行" scheme="http://gibbonlee.github.io/tags/%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+    
+      <category term="入门" scheme="http://gibbonlee.github.io/tags/%E5%85%A5%E9%97%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Linux下安装ROOT全过程(CentOS系统)</title>
     <link href="http://gibbonlee.github.io/2018/03/21/ROOT%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/"/>
     <id>http://gibbonlee.github.io/2018/03/21/ROOT安装教程/</id>
     <published>2018-03-21T09:23:00.000Z</published>
-    <updated>2018-03-21T10:09:25.548Z</updated>
+    <updated>2018-03-26T10:56:40.101Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本教程完全基于ROOT官方的<a href="https://root.cern.ch/building-root" title="Building ROOT" target="_blank" rel="noopener">安装指南</a>,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。</p><h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ol><li>一台安装有CentOS系统的电脑(Ubuntu同理)</li><li>足够的储存空间</li><li>编不出来了</li></ol><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>首先确保你的系统安装了<code>git</code>程序，没有的话在终端安装：<code>sudo yum install git</code>,然后获取最新的安装包：<code>git clone https://github.com/root-project/root.git /usr/local/</code>其中，<code>/usr/local/</code>是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。</p><p>然后安装需要的库：</p><pre><code>$ sudo yum install git cmake gcc-c++ gcc binutils libX11-devel libXpm-devel libXft-devel libXext-devel gcc-gfortran openssl-devel pcre-devel mesa-libGL-devel mesa-libGLU-devel glew-devel ftgl-devel mysql-devel fftw-devel cfitsio-devel graphviz-devel avahi-compat-libdns_sd-devel python-devel libxml2-devel</code></pre><p>此外<a href="http://mirrors.ustc.edu.cn/gnu/gsl/gsl-latest.tar.gz gsl-latest.tar.gz" target="_blank" rel="noopener">gsl标准库</a>和<a href="https://cmake.org/files/v3.11/cmake-3.11.0-rc4.tar.gz cmake3.11.0" target="_blank" rel="noopener">CMAKE</a>需要单独下载安装，安装方法一般为 :</p><pre><code>$ tar -zxvf （安装包名称）.tar.gz$ cd (安装包名称)$ ./configure$ make$ make install</code></pre><p>用这种方法安装的软件一般被保存在<code>/usr/local/share</code>文件夹中。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在<code>/usr/local</code>下面，否则放在<code>/home</code>的某一个目录下也可以。下假设安装包在<br><code>/usr/local</code>目录下。一下内容直接用命令行展示，<code>//</code>之后的部分是注释内容。</p><pre><code>$ mkdir ROOT6 &amp;&amp; cd ROOT6  //创建ROOT的文件夹$ cmake ../root    //用cmake命令进行安装，由于ROOT6与root文件夹在同一根目录下，因此直接用..代替具体路径，这里改为/usr/local/root也是可以的$ make -j4  //-j4的意思是同时使用几个线程进行make操作，如果你的电脑是双核四线程的，就是-j4，四核八线程的就是-j8，以此类推。$ //耐心等待，如果没有报错就是万幸，报错的话检查一下上述的库有没有装全。</code></pre><p>至此ROOT就已经安装好了，这时可以测试一下程序是否能顺利启动：</p><pre><code>$ cd bin$ source ./thisroot.sh$ root</code></pre><p>如果屏幕上出现ROOT的启动界面的话，那就安装完成了。</p><h2 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h2><p>实际上没啥好配置的，但是为了防止每次进入root都要运行<code>thisroot.sh</code>，我们把它加到环境变量中。最直接的一种方法：</p><pre><code>$ vi $HOME/.bashrc</code></pre><p>然后在最后一行加上<code>/usr/local/ROOT6/bin/thisroot.sh</code>即可。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>本教程完全基于ROOT官方的<a href="https://root.cern.ch/building-root" title="Building ROOT" target="_blank" rel="noopener">安装指南</a>,英语水平没有问题的同学直接参考官方文档即可。如果你之前完全没有接触过Linux系统，可以参考我的另一篇文章了解Linux的一些基本操作。</p></blockquote><h2 id="系统需求"><a href="#系统需求" class="headerlink" title="系统需求"></a>系统需求</h2><ol><li>一台安装有CentOS系统的电脑(Ubuntu同理)</li><li>足够的储存空间</li><li>编不出来了</li></ol><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>　　首先确保你的系统安装了<code>git</code>程序，没有的话在终端安装：<code>sudo yum install git</code>,然后获取最新的安装包：<code>git clone https://github.com/root-project/root.git /usr/local/</code>其中，<code>/usr/local/</code>是你想要安装ROOT的位置，因人而异。截止到写这篇教程时，ROOT最新版本为6.12.06。</p><p>　　然后安装需要的库：</p><pre><code>$ sudo yum install git cmake gcc-c++ gcc binutils libX11-devel libXpm-devel libXft-devel libXext-devel gcc-gfortran openssl-devel pcre-devel mesa-libGL-devel mesa-libGLU-devel glew-devel ftgl-devel mysql-devel fftw-devel cfitsio-devel graphviz-devel avahi-compat-libdns_sd-devel python-devel libxml2-devel</code></pre><p>　　此外<a href="http://mirrors.ustc.edu.cn/gnu/gsl/gsl-latest.tar.gz gsl-latest.tar.gz" target="_blank" rel="noopener">gsl标准库</a>和<a href="https://cmake.org/files/v3.11/cmake-3.11.0-rc4.tar.gz cmake3.11.0" target="_blank" rel="noopener">CMAKE</a>需要单独下载安装，安装方法一般为 :</p><pre><code>$ tar -zxvf （安装包名称）.tar.gz$ cd (安装包名称)$ ./configure$ make$ make install</code></pre><p>　　用这种方法安装的软件一般被保存在<code>/usr/local/share</code>文件夹中。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>　　如果你对所用的电脑有完全的控制权，可以直接把下载的ROOT安装包放在<code>/usr/local</code>下面，否则放在<code>/home</code>的某一个目录下也可以。下假设安装包在<br><code>/usr/local</code>目录下。一下内容直接用命令行展示，<code>//</code>之后的部分是注释内容。</p><pre><code>$ mkdir ROOT6 &amp;&amp; cd ROOT6  //创建ROOT的文件夹$ cmake ../root    //用cmake命令进行安装，由于ROOT6与root文件夹在同一根目录下，因此直接用..代替具体路径，这里改为/usr/local/root也是可以的$ make -j4  //-j4的意思是同时使用几个线程进行make操作，如果你的电脑是双核四线程的，就是-j4，四核八线程的就是-j8，以此类推。$ //耐心等待，如果没有报错就是万幸，报错的话检查一下上述的库有没有装全。</code></pre><p>至此ROOT就已经安装好了，这时可以测试一下程序是否能顺利启动：</p><pre><code>$ cd bin$ source ./thisroot.sh$ root</code></pre><p>　　如果屏幕上出现ROOT的启动界面的话，那就安装完成了。</p><h2 id="简单的配置"><a href="#简单的配置" class="headerlink" title="简单的配置"></a>简单的配置</h2><p>　　实际上没啥好配置的，但是为了防止每次进入root都要运行<code>thisroot.sh</code>，我们把它加到环境变量中。最直接的一种方法：</p><pre><code>$ vi $HOME/.bashrc</code></pre><p>然后在最后一行加上<code>source /usr/local/ROOT6/bin/thisroot.sh</code>即可。</p><h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　欢迎大家学习ROOT这门科学计算语言！我们共同交流探讨。</p>]]></content>
     
     <summary type="html">
     
@@ -56,9 +159,9 @@
     <link href="http://gibbonlee.github.io/2018/03/20/%E5%8F%8C%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85CentOS%207+%20Windows%2010/"/>
     <id>http://gibbonlee.github.io/2018/03/20/双硬盘安装CentOS 7+ Windows 10/</id>
     <published>2018-03-20T15:00:00.000Z</published>
-    <updated>2018-03-21T04:18:19.773Z</updated>
+    <updated>2018-03-25T13:33:01.934Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从换了SSD以后，原来机械硬盘上的系统分区就被闲置了，正好最近要用到Linux系统，所以尝试着安装了一下RH系的几个系统。中途遇到了不少坑，而且相关的资料<br>并不多。因此我想在这里把自己的经验和大家分享一下。</p><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>需要提前下载的东西有:</p><ul><li><a href="https://cn.ultraiso.net/xiazai.html" title="UltraISO官方下载地址" target="_blank" rel="noopener">UltraISO</a></li><li><a href="http://mirrors.ustc.edu.cn/centos/7.4.1708/isos/x86_64/" title="CentOS 科大镜像站下载地址" target="_blank" rel="noopener">CentOS7</a> 原版镜像</li><li>(<a href="https://github.com/MartinBriza/MediaWriter/releases" title="Fedora Media Writer Realeases for Windows Platform" target="_blank" rel="noopener">Fedora Media Writer</a>)</li></ul><p>其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用UltraISO 写入硬盘映像。系统镜像的下载地址我选择了 <a href="http://mirrors.ustc.edu.cn" title="科大镜像站" target="_blank" rel="noopener">USTC open source software mirror</a>,比国外的镜像站速度要快不少，当然，你也可以选择阿里云或者网易的镜像站。UltraISO用官方试用版的即可，现在貌似试用版的没有使用期限了，功能也够用。</p><h2 id="安装条件检查"><a href="#安装条件检查" class="headerlink" title="安装条件检查"></a>安装条件检查</h2><ol><li>First of all，确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！重要的事情说三遍。如果不是UEFI引导的，虽然安装上没有任何问题，但是之后切换系统会让你痛苦万分。</li><li>确认硬盘上存在EFI分区，而且这个分区的文件格式是FAT32。分区情况可以在<code>计算机-管理-磁盘管理</code>中看到。还需要注意这一分区所在的位置，是在HDD上还是SDD上，我的是在HDD上的，这是以下内容的前提。如果EFI分区在SDD上，本篇经验可能有不适用的地方，请注意数据安全！</li></ol><h2 id="制作启动U盘"><a href="#制作启动U盘" class="headerlink" title="制作启动U盘"></a>制作启动U盘</h2><p>首先，准备一个空的8G以上的U盘，这里我不建议使用移动硬盘，因为会麻烦很多，这个我会单独写一篇文章来介绍。 在确保U盘内没有重要文件的前提下，用UltraISO加载CentOS7的iso镜像，然后选择<code>启动-写入硬盘映像</code>所有设置都默认即可。RH系的系统的一个特点是镜像中自带EFI文件，因此不需要专门花功夫去建立引导。</p><h2 id="进入安装介质"><a href="#进入安装介质" class="headerlink" title="进入安装介质"></a>进入安装介质</h2><p>重启电脑，狂点<code>ESC</code>或<code>F2</code>键，进入BIOS界面，在Boot菜单确认引导方式是<code>UEFI</code>而非<code>Legacy Support</code>，然后寻找一个名为<code>Secure Boot</code>的选项，设置为<code>Disabled</code>。这一选项可能存在于<code>Boot</code>或<code>Security</code>菜单，因人而异。然后还是在<code>Boot</code>菜单中，把U盘作为第一启动项，插入U盘后，按<code>F10</code>重启即可进入安装介质。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>从U盘启动后，进入有三个选项的界面，第一个是直接安装CentOS，第二个是测试机器后安装CentOS，第三个是Troubleshooting Mode。把光标移动到第一个选项上，点击键盘上的<code>Tab</code>键或<code>e</code>键，把<code>hd:</code>后面的内容从<code>LABEL=Cent……64</code>改为<code>/dev/sdc4</code>然后回车，试一下是否能进入安装界面，一般而言，centos给U盘分配的分区都是<code>sdc4</code>。如果不行的话，重启，把<code>inst.stage2……</code>后面的内容改为<code>linux dd quiet</code>，回车后会进入一个显示分区情况的界面，找到自己的U盘对应的名字，按照之前的步骤改写启动选项，即可顺利进入安装界面。由于我手头没有设备，因此这一部分没有展示的图片，看起来会比较困难，望见谅！</p><p>进入可视化安装界面后，前面按照自己的需求设置即可，到了有安装源和安装介质的界面，也就来到了本篇经验的核心部分！安装源选择带GNOME的选项，因为图形化界面的安装还是比较困难的。<strong>重点来了</strong> 点击安装介质后，选择自己的HDD，然后选择手动分配分区，进入分区界面后，删除要安装系统的那个分区(如果那部分本来就没有分区的话是最好的)，然后选择自动挂载分区，这个时候如果你的HDD上本来就有EFI分区的话，他会自动选择这一分区为EFI分区，如果安装程序单独划分了一个EFI分区的话(确保这个分区真的是他刚刚划分出来的)，删除这个分区，然后在下面已有的分区中找到EFI分区的位置，把这个分区设置为<code>/boot</code>分区。之后正常安装即可。</p><h2 id="找回Windows10启动项"><a href="#找回Windows10启动项" class="headerlink" title="找回Windows10启动项"></a>找回Windows10启动项</h2><p>如果前面的步骤全都十分顺利，那么我们现在应该已经进入CentOS系统了，而且启动菜单中已经有<code>Windows Boot Manager(on /dev/sda1)</code>的字样，是不是很方便？这一步的原理是，如果我们选择已有的EFI分区作为CentOS的EFI分区的话，安装程序会在这一分区下另外创建引导文件而不删除已有的EFI文件，因此在这个分区的文件格式是<code>FAT32</code>的情况下，启动菜单中自然会有Windows10的启动项。如此一来，自然也就不需要要下载<code>ntfs-3g</code>，输入<code>grub2-mkconfig</code>命令等步骤了。</p><p>可能更常见的情况是，EFI分区是在SSD上的，而且分区格式是<code>NTFS</code>，这种情况下，最稳妥的办法是：安装CentOS时拔掉SSD硬盘，安装完成后装回去，进入CentOS系统，在终端输入<code>sudo yum install ntfs-3g</code>,然后运行命令<code>grub2-mkconfig -o /boot/grub2/grub.cfg</code>。经过以上步骤一般可以找回Windows启动项。</p><p>如果我们想把windows作为默认启动项，可以在启动菜单记录下windows启动项的名称，然后在终端运行命令<code>grub2-set-default &quot;启动项名称&quot;</code>，对我的电脑而言，输入的是<code>grub2-set-default &quot;Windows Boot Manager(on /dev/sda1)&quot;</code>。</p><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>以上内容只是我的个人经验和一家之言，可能不具有很强的普适性，如有问题欢迎联系我讨论，再次声明：以上内容仅供参考，出现问题本人概不负责（=_=）。</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote><p>自从换了SSD以后，原来机械硬盘上的系统分区就被闲置了，正好最近要用到Linux系统，所以尝试着安装了一下RH系的几个系统。中途遇到了不少坑，而且相关的资料<br>并不多。因此我想在这里把自己的经验和大家分享一下。</p></blockquote><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>　　需要提前下载的东西有:</p><ul><li><a href="https://cn.ultraiso.net/xiazai.html" title="UltraISO官方下载地址" target="_blank" rel="noopener">UltraISO</a></li><li><a href="http://mirrors.ustc.edu.cn/centos/7.4.1708/isos/x86_64/" title="CentOS 科大镜像站下载地址" target="_blank" rel="noopener">CentOS　7</a> 原版镜像</li><li>(<a href="https://github.com/MartinBriza/MediaWriter/releases" title="Fedora Media Writer Realeases for Windows Platform" target="_blank" rel="noopener">Fedora Media Writer</a>)</li></ul><p>　　其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用UltraISO 写入硬盘映像。系统镜像的下载地址我选择了 <a href="http://mirrors.ustc.edu.cn" title="科大镜像站" target="_blank" rel="noopener">USTC open source software mirror</a>,比国外的镜像站速度要快不少，当然，你也可以选择阿里云或者网易的镜像站。UltraISO用官方试用版的即可，现在貌似试用版的没有使用期限了，功能也够用。</p><h2 id="安装条件检查"><a href="#安装条件检查" class="headerlink" title="安装条件检查"></a>安装条件检查</h2><ol><li>First of all，确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！确保你的Windows系统是UEFI引导的！重要的事情说三遍。如果不是UEFI引导的，虽然安装上没有任何问题，但是之后切换系统会让你痛苦万分。</li><li>确认硬盘上存在EFI分区，而且这个分区的文件格式是FAT32。分区情况可以在<code>计算机-管理-磁盘管理</code>中看到。还需要注意这一分区所在的位置，是在HDD上还是SDD上，我的是在HDD上的，这是以下内容的前提。如果EFI分区在SDD上，本篇经验可能有不适用的地方，请注意数据安全！</li></ol><h2 id="制作启动U盘"><a href="#制作启动U盘" class="headerlink" title="制作启动U盘"></a>制作启动U盘</h2><p>　　首先，准备一个空的8G以上的U盘，这里我不建议使用移动硬盘，因为会麻烦很多，这个我会单独写一篇文章来介绍。 在确保U盘内没有重要文件的前提下，用UltraISO加载CentOS7的iso镜像，然后选择<code>启动-写入硬盘映像</code>所有设置都默认即可。RH系的系统的一个特点是镜像中自带EFI文件，因此不需要专门花功夫去建立引导。</p><h2 id="进入安装介质"><a href="#进入安装介质" class="headerlink" title="进入安装介质"></a>进入安装介质</h2><p>　　重启电脑，按<code>ESC</code>或<code>F2</code>键进入BIOS界面，在Boot菜单确认引导方式是<code>UEFI</code>而非<code>Legacy Support</code>，然后寻找一个名为<code>Secure Boot</code>的选项，设置为<code>Disabled</code>。这一选项可能存在于<code>Boot</code>或<code>Security</code>菜单，因人而异。然后还是在<code>Boot</code>菜单中，把U盘作为第一启动项，插入U盘后，按<code>F10</code>重启即可进入安装介质。</p><h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>　　从U盘启动后，进入有三个选项的界面，第一个是直接安装CentOS，第二个是测试机器后安装CentOS，第三个是Troubleshooting Mode。把光标移动到第一个选项上，点击键盘上的<code>Tab</code>键或<code>e</code>键，把<code>hd:</code>后面的内容从<code>LABEL=Cent……64</code>改为<code>/dev/sdc4</code>然后回车，试一下是否能进入安装界面，一般而言，centos给U盘分配的分区都是<code>sdc4</code>。如果不行的话，重启，把<code>inst.stage2……</code>后面的内容改为<code>linux dd quiet</code>，回车后会进入一个显示分区情况的界面，找到自己的U盘对应的名字，按照之前的步骤改写启动选项，即可顺利进入安装界面。由于我手头没有设备，因此这一部分没有展示的图片，看起来会比较困难，望见谅！</p><p>　　进入可视化安装界面后，前面按照自己的需求设置即可，到了有安装源和安装介质的界面，也就来到了本篇经验的核心部分！安装源选择带GNOME的选项，因为图形化界面的安装还是比较困难的。<strong>重点来了</strong> 点击安装介质后，选择自己的HDD，然后选择手动分配分区，进入分区界面后，删除要安装系统的那个分区(如果那部分本来就没有分区的话是最好的)，然后选择自动挂载分区，这个时候如果你的HDD上本来就有EFI分区的话，他会自动选择这一分区为EFI分区，如果安装程序单独划分了一个EFI分区的话(确保这个分区真的是他刚刚划分出来的)，删除这个分区，然后在下面已有的分区中找到EFI分区的位置，把这个分区设置为<code>/boot</code>分区。之后正常安装即可。</p><h2 id="找回Windows10启动项"><a href="#找回Windows10启动项" class="headerlink" title="找回Windows10启动项"></a>找回Windows10启动项</h2><p>　　如果前面的步骤全都十分顺利，那么我们现在应该已经进入CentOS系统了，而且启动菜单中已经有<code>Windows Boot Manager(on /dev/sda1)</code>的字样，是不是很方便？这一步的原理是，如果我们选择已有的EFI分区作为CentOS的EFI分区的话，安装程序会在这一分区下另外创建引导文件而不删除已有的EFI文件，因此在这个分区的文件格式是<code>FAT32</code>的情况下，启动菜单中自然会有Windows10的启动项。如此一来，自然也就不需要要下载<code>ntfs-3g</code>，输入<code>grub2-mkconfig</code>命令等步骤了。</p><p>　　可能更常见的情况是，EFI分区是在SSD上的，而且分区格式是<code>NTFS</code>，这种情况下，最稳妥的办法是：安装CentOS时拔掉SSD硬盘，安装完成后装回去，进入CentOS系统，在终端输入<code>sudo yum install ntfs-3g</code>,然后运行命令<code>grub2-mkconfig -o /boot/grub2/grub.cfg</code>。经过以上步骤一般可以找回Windows启动项。</p><p>　　如果我们想把windows作为默认启动项，可以在启动菜单记录下windows启动项的名称，然后在终端运行命令<code>grub2-set-default &quot;启动项名称&quot;</code>，对我的电脑而言，输入的是<code>grub2-set-default &quot;Windows Boot Manager(on /dev/sda1)&quot;</code>。</p><h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>　　以上内容只是我的个人经验和一家之言，可能不具有很强的普适性，如有问题欢迎联系我讨论，再次声明：以上内容仅供参考，出现问题本人概不负责（=_=）。</p>]]></content>
     
     <summary type="html">
     
@@ -70,10 +173,10 @@
 需要提前下载的东西有:
 
  * UltraISO
- * CentOS7 原版镜像
+ * CentOS 7 原版镜像
  * (Fedora Media Writer)
 
-其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用U
+其中，如果要安装的是Fedora系统的话，只需要一个Fedora Media Writer 即可，这个软件同时集成了下载镜像、制作启动盘的功能，只需要点几下鼠标就可以轻松安装，因此不在这里赘述。如果要安装的是CentOS的话，我们需要用
     
     </summary>
     
@@ -129,9 +232,9 @@ $ hexo s
     <link href="http://gibbonlee.github.io/2018/03/18/1/"/>
     <id>http://gibbonlee.github.io/2018/03/18/1/</id>
     <published>2018-03-18T07:00:00.000Z</published>
-    <updated>2018-03-21T09:17:56.342Z</updated>
+    <updated>2018-03-25T13:29:21.146Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>我的邮箱：<a href="mailto:&#122;&#x6b;&#x6a;&#x69;&#x61;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#117;&#115;&#116;&#99;&#46;&#x65;&#x64;&#117;&#46;&#99;&#x6e;" target="_blank" rel="noopener">&#122;&#x6b;&#x6a;&#x69;&#x61;&#x40;&#x6d;&#97;&#x69;&#108;&#x2e;&#117;&#115;&#116;&#99;&#46;&#x65;&#x64;&#117;&#46;&#99;&#x6e;</a>,欢迎联系！</p><h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><p>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="sample"><a href="#sample" class="headerlink" title="sample"></a>sample</h2><p>　　这是一个简单的markdown文档的例子。如果我们想在C++中用<code>printf()</code>输出 <strong>hello，&amp;world！</strong> 只需要编写以下内容：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">std::cout &lt;&lt; &quot;Hello, &amp;world!&quot; &lt;&lt; std::endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>　　这里引用了《<em>嘿嘿嘿</em>》一书中的内容：</p><blockquote><p>嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。嘿嘿嘿嘿嘿，嘿嘿嘿！嘿嘿嘿，嘿嘿嘿嘿嘿。</p><blockquote><p>嘿嘿嘿嘿嘿，嘿嘿嘿！</p></blockquote></blockquote><p>大致总结一下，有以下几个要点：</p><ol><li>嘿</li><li>嘿嘿</li><li>嘿嘿嘿</li></ol><p>换言之：</p><ul><li>嘿</li><li><p>嘿嘿</p></li><li><p>嘿嘿嘿</p></li></ul><p>此书可以在<a href="https://google.com" title="Google" target="_blank" rel="noopener">Google</a>上找到。Google的网站<em>logo</em>十分有趣：<img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" alt="logo" title="logo"></p><p>这个图片的源地址是：<a href="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png" target="_blank" rel="noopener">https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b9999_10000&amp;sec=1521374888615&amp;di=ee8d1967be43ffebe57c94e4b0a7a67b&amp;imgtype=0&amp;src=http%3A%2F%2Foss.aliyuncs.com%2Fmsimage%2FUpload%2Fwww.kashangwl.com%2FCooperationLink%2F9ccc1233-d045-4fb1-9892-5f70a6a48abf.png</a></p><h2 id="Contact"><a href="#Contact" class="headerlink" title="Contact"></a>Contact</h2><p>我的邮箱：<a href="mailto:&#x7a;&#107;&#106;&#x69;&#97;&#x40;&#x6d;&#97;&#105;&#x6c;&#46;&#117;&#115;&#116;&#99;&#x2e;&#101;&#100;&#x75;&#x2e;&#x63;&#x6e;" target="_blank" rel="noopener">&#x7a;&#107;&#106;&#x69;&#97;&#x40;&#x6d;&#97;&#105;&#x6c;&#46;&#117;&#115;&#116;&#99;&#x2e;&#101;&#100;&#x75;&#x2e;&#x63;&#x6e;</a>,欢迎联系！</p><h2 id="Thanks"><a href="#Thanks" class="headerlink" title="Thanks"></a>Thanks</h2><p>本文参考的文章有*appinn*网站上的<a href="https://www.appinn.com/markdown/" title="Markdown" target="_blank" rel="noopener">Markdown</a>文档。十分感谢!</p>]]></content>
     
     <summary type="html">
     
@@ -170,6 +273,47 @@ int main()
     
     
       <category term="Markdown" scheme="http://gibbonlee.github.io/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>vue2.x 做一个外卖app</title>
+    <link href="http://gibbonlee.github.io/2017/11/11/sample/"/>
+    <id>http://gibbonlee.github.io/2017/11/11/sample/</id>
+    <published>2017-11-10T19:25:24.000Z</published>
+    <updated>2018-03-25T08:24:14.351Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p id="div-border-top-green">本项目是基于 vue2.4 最新的实战项目，vue-cli2.8 + vue2.4 + vue-resource + vue-router2.7 + es6 + mock + webpack 的一个移动端外卖 app。</p><p><img src="/images/vue-sell-1.png" alt=""></p><p id="div-border-left-red">现在最流行的开发方式就是前后分离了；<br><a href="/tags/vue">vue</a> 也是现在最流行的前端框架之一。</p><a id="more"></a><h2 id="截屏演示"><a href="#截屏演示" class="headerlink" title="截屏演示"></a>截屏演示</h2><p><img src="/images/vue-sell-3.gif" alt=""></p><h2 id="移动端演示"><a href="#移动端演示" class="headerlink" title="移动端演示"></a>移动端演示</h2><p>扫二维码在手机上查看效果更好<br><img src="/images/vue-sell-2.png" alt=""></p><h2 id="构建"><a href="#构建" class="headerlink" title="构建"></a>构建</h2><p>vue 有自己的脚手架构建工具 vue-cli 。使用起来非常方便，使用 webpack 来集成各种开发便捷工具，比如：</p><ul><li>代码热更新，修改代码之后网页无刷新改变，对前端开发来说非常的方便</li><li>Postcss，再也不用去管兼容性的问题了，只针对 chrome 写 css 代码，会自动编译生成支持多款浏览器的 css 代码</li><li>ESlint，统一代码风格</li><li>bable，ES2015 出来已经有一段事件了，但是不少浏览器还没有兼容 ES6。有了 bable，放心使用 ES6 语法，它会自动转义成 ES5 语法</li><li>Stylus，类似于 sass/scss ，但是可以不写 <code>{ }</code> 和 <code>:</code>，使用起来还是很方便的</li></ul><p>除此之外，vue-cli 已经使用 node 配置了一套本地服务器和安装命令等，本地运行和打包只需要一个命令就可以搞定，非常的方便。</p><h2 id="为什么写这个项目"><a href="#为什么写这个项目" class="headerlink" title="为什么写这个项目"></a>为什么写这个项目</h2><p>vue 的官网文档写的很好，很多同学在学习完文档以后，很难实际上手做项目，只能做一些 todo-list 的小 demo ,距离上手做项目还有一些差距。<br>这一套 vue 的实战视频可以说是非常适合新手入门进阶，让你可以动手用 vue 来做项目，解决 vue 在实战中的问题才是大家最想学习的，而不是小打小闹的 demo。<br><img src="/images/vue-sell-5.png" alt=""></p><p>而且这套视频教程包含现在最新的前端必备技术点详细教学：webpack、eslint、vue-cli构建、模块打包、mock、vue-resource、axios、以及真实项目中会遇到的各种问题以及解决方案。</p><h2 id="获取教程"><a href="#获取教程" class="headerlink" title="获取教程"></a>获取教程</h2><p>这个项目我从头到尾写了一遍，由于有一些包或者模块升级的原因，会有一些小的问题，我都已经解决过了。<br>现在扫码即可获取视频教程以及本人联系方式 微信/QQ，你可以问我你在学这个项目中遇到的任何问题，我都会帮你解答。<br><img src="/images/vue-sell-pay.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      简介
+本项目是基于 vue2.4 最新的实战项目，vue-cli2.8 + vue2.4 + vue-resource + vue-router2.7 + es6 + mock + webpack 的一个移动端外卖 app。
+
+
+
+现在最流行的开发方式就是前后分离了；
+vue 也是现在最流行的前端框架之一。
+
+截屏演示
+
+
+移动端演示
+扫二维码在手机上查看效果更好
+
+
+构建
+vue 有自己的脚手架构建工具 vue-cli 。使用起来非常方便，使用 webpack 来集成各种开发便捷工具，比如：
+
+ * 代码热更新，修改代码之后网页无刷新改变，对前端开发来说非常的方便
+ * Postcss，再也
+    
+    </summary>
+    
+      <category term="前端" scheme="http://gibbonlee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+      <category term="vue" scheme="http://gibbonlee.github.io/tags/vue/"/>
     
   </entry>
   

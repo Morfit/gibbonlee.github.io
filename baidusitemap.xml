@@ -4,8 +4,34 @@
 
     
   <url>
+    <loc>http://gibbonlee.github.io/2018/03/25/Geant4%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-03-26T11:00:28.872Z</lastmod>
+    <data>
+        <display>
+        <title>Linux下安装Geant 4全过程(CentOS系统)</title>
+        <pubTime>2018-03-25T14:10:00.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>CERN</tag>
+         
+        <tag>Geant 4</tag>
+         
+        <tag>Qt</tag>
+         
+         
+           
+             
+              <breadCrumb title="Geant 4学习" url="http://gibbonlee.github.io/categories/Geant-4%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://gibbonlee.github.io/2018/03/21/ROOT%E5%AE%89%E8%A3%85%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2018-03-21T10:09:25.548Z</lastmod>
+    <lastmod>2018-03-26T10:56:40.101Z</lastmod>
     <data>
         <display>
         <title>Linux下安装ROOT全过程(CentOS系统)</title>
@@ -28,8 +54,86 @@
 
     
   <url>
+    <loc>http://gibbonlee.github.io/2018/03/25/%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E7%9B%98%E4%BF%AE%E5%A4%8DWindows10%E5%BC%95%E5%AF%BC/</loc>
+    <lastmod>2018-03-25T14:22:04.935Z</lastmod>
+    <data>
+        <display>
+        <title>利用系统安装盘修复Windows10引导</title>
+        <pubTime>2018-03-25T14:08:21.886Z</pubTime>
+        
+        <tag>命令行</tag>
+         
+        <tag>Windows</tag>
+         
+        <tag>引导修复</tag>
+         
+         
+           
+             
+              <breadCrumb title="Windows使用技巧" url="http://gibbonlee.github.io/categories/Windows%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://gibbonlee.github.io/2018/03/25/Linux%E5%91%BD%E4%BB%A4%E8%A1%8C%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2018-03-25T14:03:40.906Z</lastmod>
+    <data>
+        <display>
+        <title>Linux命令行的简单介绍</title>
+        <pubTime>2018-03-25T08:11:00.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>RedHat</tag>
+         
+        <tag>CentOS</tag>
+         
+        <tag>命令行</tag>
+         
+        <tag>入门</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://gibbonlee.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://gibbonlee.github.io/2018/03/20/%E5%8F%8C%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85CentOS%207+%20Windows%2010/</loc>
+    <lastmod>2018-03-25T13:33:01.934Z</lastmod>
+    <data>
+        <display>
+        <title>双硬盘安装CentOS 7+Windows 10</title>
+        <pubTime>2018-03-20T15:00:00.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>RedHat</tag>
+         
+        <tag>CentOS</tag>
+         
+        <tag>双系统</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="http://gibbonlee.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://gibbonlee.github.io/2018/03/18/1/</loc>
-    <lastmod>2018-03-21T09:17:56.342Z</lastmod>
+    <lastmod>2018-03-25T13:29:21.146Z</lastmod>
     <data>
         <display>
         <title>A sample of Markdown document</title>
@@ -48,25 +152,19 @@
 
     
   <url>
-    <loc>http://gibbonlee.github.io/2018/03/20/%E5%8F%8C%E7%A1%AC%E7%9B%98%E5%AE%89%E8%A3%85CentOS%207+%20Windows%2010/</loc>
-    <lastmod>2018-03-21T04:18:19.773Z</lastmod>
+    <loc>http://gibbonlee.github.io/2017/11/11/sample/</loc>
+    <lastmod>2018-03-25T08:24:14.351Z</lastmod>
     <data>
         <display>
-        <title>双硬盘安装CentOS 7+Windows 10</title>
-        <pubTime>2018-03-20T15:00:00.000Z</pubTime>
+        <title>vue2.x 做一个外卖app</title>
+        <pubTime>2017-11-10T19:25:24.000Z</pubTime>
         
-        <tag>Linux</tag>
-         
-        <tag>RedHat</tag>
-         
-        <tag>CentOS</tag>
-         
-        <tag>双系统</tag>
+        <tag>vue</tag>
          
          
            
              
-              <breadCrumb title="Linux" url="http://gibbonlee.github.io/categories/Linux/"/>
+              <breadCrumb title="前端" url="http://gibbonlee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
           
         </display>
     </data>

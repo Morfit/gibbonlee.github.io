@@ -64,7 +64,7 @@
 
 
 
-  <meta name="keywords" content="Linux, Root, Geant4, CERN" />
+  <meta name="keywords" content="Linux,CERN,Geant 4,Qt," />
 
 
 
@@ -77,16 +77,18 @@
 
 
 
-<meta name="description" content="興·趣·使·然">
-<meta property="og:type" content="website">
-<meta property="og:title" content="ブログだけでなく">
-<meta property="og:url" content="http://gibbonlee.github.io/tags/CERN/index.html">
+<meta name="description" content="前言 这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的Geant4安装过程以及Geant4官方的安装指南。  关于Geant4 Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：">
+<meta name="keywords" content="Linux,CERN,Geant 4,Qt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux下安装Geant 4全过程(CentOS系统)">
+<meta property="og:url" content="http://gibbonlee.github.io/2018/03/25/Geant4安装教程/index.html">
 <meta property="og:site_name" content="ブログだけでなく">
-<meta property="og:description" content="興·趣·使·然">
+<meta property="og:description" content="前言 这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的Geant4安装过程以及Geant4官方的安装指南。  关于Geant4 Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-26T11:00:28.872Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ブログだけでなく">
-<meta name="twitter:description" content="興·趣·使·然">
+<meta name="twitter:title" content="Linux下安装Geant 4全过程(CentOS系统)">
+<meta name="twitter:description" content="前言 这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的Geant4安装过程以及Geant4官方的安装指南。  关于Geant4 Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：">
 
 
 
@@ -116,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://gibbonlee.github.io/tags/CERN/"/>
+  <link rel="canonical" href="http://gibbonlee.github.io/2018/03/25/Geant4安装教程/"/>
 
 
 
 
 
-  <title>标签: CERN | ブログだけでなく</title>
+  <title>Linux下安装Geant 4全过程(CentOS系统) | ブログだけでなく</title>
   
 
 
@@ -150,7 +152,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/GibbonLee/gibbonlee.github.io"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
@@ -290,82 +292,277 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>CERN<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://gibbonlee.github.io/2018/03/25/Geant4安装教程/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="GibbonLee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/favicon.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ブログだけでなく">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/25/Geant4安装教程/" itemprop="url">
-              
-                <span itemprop="name">Linux下安装Geant 4全过程(CentOS系统)</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Linux下安装Geant 4全过程(CentOS系统)</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-25T22:10:00+08:00"
-              content="2018-03-25" >
-          03-25
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T22:10:00+08:00">
+                2018-03-25
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Geant-4学习/" itemprop="url" rel="index">
+                    <span itemprop="name">Geant 4学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/25/Geant4安装教程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/03/25/Geant4安装教程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  899
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/21/ROOT安装教程/" itemprop="url">
-              
-                <span itemprop="name">Linux下安装ROOT全过程(CentOS系统)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-21T17:23:00+08:00"
-              content="2018-03-21" >
-          03-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>这篇教程默认你已经安装了ROOT，如果没有的话，建议先安装上ROOT，因为这两个软件是相辅相成的。如果你真的不打算安装ROOT，那么至少把ROOT的依赖库安装上，这是必须的。本教程借鉴了leeyeel前辈的<a href="https://leeyeel.github.io/2017/07/01/geant4-install/" title="Geant4安装过程-leeyeel" target="_blank" rel="noopener">Geant4安装过程</a>以及Geant4官方的<a href="http://geant4.web.cern.ch/geant4/UserDocumentation/UsersGuides/InstallationGuide/html/index.html Geant4 Installation Guide" target="_blank" rel="noopener">安装指南</a>。</p>
+</blockquote>
+<h2 id="关于Geant4"><a href="#关于Geant4" class="headerlink" title="关于Geant4"></a>关于Geant4</h2><p>　　Geant4 是一个用于精确模拟粒子穿过物质行为的开源软件。模拟过程需要的所有东西都已经包含在了ToolKit中：</p>
+<ul>
+<li>系统的几何构成</li>
+<li>所用的材料</li>
+<li>基本粒子</li>
+<li>发生的主要过程</li>
+<li>粒子穿过物质和电磁场的轨迹</li>
+<li>主导粒子相互作用的物理过程</li>
+<li>灵敏探测器组件的响应</li>
+<li>事件数据的生成</li>
+<li>对事件和轨迹的记录</li>
+<li>探测器和粒子轨迹的可视化，以及在不同区间与分辨率下对模拟数据的获取和分析</li>
+</ul>
+<p>Geant4的核心是一整套描述粒子相互作用的物理模型，它覆盖了十分宽泛的能量范围。Geant4从很多来源上获取了大量的数据和专业知识，从这一方面来看，Geant4作为一个数据库覆盖了目前已知的关于粒子相互作用的大部分知识。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>　　安装好依赖库之后，使用命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install libXmu.x86_64 libXmu-devel.x86_64</span><br></pre></td></tr></table></figure></p>
+<p>安装好X11和Xmu的软件包，缺少这两个软件是安装中报错的常见问题。此外，为了实现可视化，我们需要安装Qt。最简单的方法是使用命令安装<code>$ yum install qt4 qt4*</code>。虽然Geant4的安装配置文档中说Geant4在安装时会优先寻找Qt5软件，但是实际安装时我发现Geant4对Qt5的支持并不好，总是提示找不到Qt软件，所以我们索性先安装上Qt4软件，后期使用时再根据自己的需求安装Qt5。</p>
+<h2 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h2><p>　　首先我们从Geant4的<a href="http://geant4.web.cern.ch/geant4/support/download.shtml Geant4 Software Download" target="_blank" rel="noopener">下载页面</a>上把源文件和数据文件都下载下来，然后把数据文件都解压到一个自己创建的名为data的文件夹中，留着安装时用。然后把源码解压到我们想要安装Geant4的地方并重命名为<code>Geant4s</code>，这里以<code>/usr/local/</code>为例。直接用命令展示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir geant4-build &amp;&amp; cd geant4-build</span><br><span class="line">$ cmake -DCMAKE_INSTALL_PREFIX=/usr/local/geant4/ -DGEANT4_USE_OPENGL_X11=ON -DGEANT4_USE_RAYTRACER_X11=ON -DGEANT4_USE_QT=ON GEANT4_BUILD_MULTITHREADED=ON /usr/local/geant4s</span><br><span class="line">$ make -jN</span><br><span class="line">$ make install -jN</span><br></pre></td></tr></table></figure></p>
+<p>其中，<code>-DCMAKE_ISNTALL_PREFIX</code>指示了你要安装Geant4的位置，可以根据自己的需求调整；<code>-DGEANT4_USE_OENGL_X11=ON -DGEANT4_USE_RAYTRACER_X11=ON</code>开启了可视化；<code>-DGEANT4_USE_QT=ON</code>表示允许调用Qt界面；<code>GEANT4_BUILD_MULTITHREADED=ON</code>开启了多线程’此功能只适用于UNIX系统’；<code>make</code>命令中的N替换为自己cpu的线程数。</p>
+<h2 id="安装之后"><a href="#安装之后" class="headerlink" title="安装之后"></a>安装之后</h2><p>　　首先把之前制作好的data文件夹移动到<code>geant4/share/Geant4-X/</code>文件夹下，X对应你的Geant4版本号。然后在同一目录下查找<code>geant4make</code>文件夹，使用命令<code>$ source geant4make.sh</code>，或用命令<code>$ vi $HOME/.bashrc</code>把<code>source [path]/geant4make.sh</code>添加进去，其中<code>[path]</code>是<code>geant4make.sh</code>的路径。<br>　　之后可以运行一个例子来试验一下软件是否能正常运行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /usr/local/geant4/share/Geant4-10.04.p01/examples/basic/B1</span><br><span class="line">$ make -j4</span><br><span class="line">$exampleB1</span><br></pre></td></tr></table></figure></p>
+<p>此时Geant4应该会调用Qt界面显示出一个电子散射的例子。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>　　我自己在安装Geant4时也遇到了许多坑，这篇教程可能也有一些不恰当或不全面的地方，欢迎联系我讨论！</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    GibbonLee
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://gibbonlee.github.io/2018/03/25/Geant4安装教程/" title="Linux下安装Geant 4全过程(CentOS系统)">http://gibbonlee.github.io/2018/03/25/Geant4安装教程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+            <a href="/tags/CERN/" rel="tag"><i class="fa fa-tag"></i> CERN</a>
+          
+            <a href="/tags/Geant-4/" rel="tag"><i class="fa fa-tag"></i> Geant 4</a>
+          
+            <a href="/tags/Qt/" rel="tag"><i class="fa fa-tag"></i> Qt</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+          <div class="wp_rating">
+            <div id="wpac-rating"></div>
+          </div>
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/25/系统安装盘修复Windows10引导/" rel="next" title="利用系统安装盘修复Windows10引导">
+                <i class="fa fa-chevron-left"></i> 利用系统安装盘修复Windows10引导
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -373,6 +570,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -393,8 +604,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -511,6 +731,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关于Geant4"><span class="nav-number">2.</span> <span class="nav-text">关于Geant4</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">3.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开始安装"><span class="nav-number">4.</span> <span class="nav-text">开始安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装之后"><span class="nav-number">5.</span> <span class="nav-text">安装之后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -651,6 +887,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -668,6 +908,18 @@
       <script id="dsq-count-scr" src="https://gibbonlee-github-io.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://gibbonlee.github.io/2018/03/25/Geant4安装教程/';
+          this.page.identifier = '2018/03/25/Geant4安装教程/';
+          this.page.title = 'Linux下安装Geant 4全过程(CentOS系统)';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://gibbonlee-github-io.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
@@ -1067,6 +1319,23 @@
   </script>
 
   
+  <script type="text/javascript">
+  wpac_init = window.wpac_init || [];
+  wpac_init.push({widget: 'Rating', id: 10504,
+    el: 'wpac-rating',
+    color: 'fc6423'
+  });
+  (function() {
+    if ('WIDGETPACK_LOADED' in window) return;
+    WIDGETPACK_LOADED = true;
+    var mc = document.createElement('script');
+    mc.type = 'text/javascript';
+    mc.async = true;
+    mc.src = '//embed.widgetpack.com/widget.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+  })();
+  </script>
+
 
   
   
